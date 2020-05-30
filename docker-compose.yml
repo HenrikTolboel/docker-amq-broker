@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  artemis:
+    image: ${DOCKER_IMAGE_NAME}
+    restart: always
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+    container_name: ${DOCKER_CONTAINER_NAME}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${DOCKER_LOG_SIZE}"
+    volumes:
+      - data:/data
+      - backup:/backup
+    environment:
+      - AMQ_USER=${ARTEMIS_USER}
+      - AMQ_PASSWORD=${ARTEMIS_PASSWORD}
+volumes:
+  data:
+  backup:
